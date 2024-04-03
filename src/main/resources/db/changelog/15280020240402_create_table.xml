@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <changeSet id="base-table" author="ben">
+    <validCheckSum>ANY</validCheckSum>
+    <sql>
+      create sequence IF not exists classes_seq;
+      create sequence IF not exists score_seq;
+      create sequence IF not exists student_seq;
+    </sql>
+    <sql>
+      create table if not exists classes
+      (
+        id               bigint not null
+        constraint classes_pkey
+        primary key,
+        created_by       varchar(255),
+        created_on       timestamp(6) with time zone,
+                                        last_modified_by varchar(255),
+        last_modified_on timestamp(6) with time zone,
+                                        name             varchar(255)
+        );
+
+      create table if not exists student
+      (
+        id               bigint not null
+        constraint student_pkey
+        primary key,
+        created_by       varchar(255),
+        created_on       timestamp(6) with time zone,
+                                        last_modified_by varchar(255),
+        last_modified_on timestamp(6) with time zone,
+                                        name             varchar(255)
+        );
+
+      create table if not exists score
+      (
+        id               bigint not null
+        constraint score_pkey
+        primary key,
+        created_by       varchar(255),
+        created_on       timestamp(6) with time zone,
+                                        last_modified_by varchar(255),
+        last_modified_on timestamp(6) with time zone,
+                                        name             varchar(255),
+        score_number     integer,
+        class_id         bigint
+        constraint fk2ybpj4nfnhkedsgi0m2y8cmco
+        references classes,
+        student_id       bigint
+        constraint fknap51mbove93yjb09idc9jic6
+        references student
+        );
+    </sql>
+  </changeSet>
+</databaseChangeLog>
